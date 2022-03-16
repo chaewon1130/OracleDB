@@ -1,0 +1,7 @@
+-- BETWEEN A AND B
+SELECT
+    *
+FROM
+    emp
+WHERE
+    sal NOT BETWEEN 2000 AND 3000; 
