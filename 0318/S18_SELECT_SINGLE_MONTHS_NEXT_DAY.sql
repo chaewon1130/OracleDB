@@ -1,0 +1,9 @@
+-- NEXT_DAY
+-- 윈도우 : NEXT_DAY(SYSDATE, '금요일')
+-- 유닉스 : NEXT_DAY(SYSDATE, 'MON')
+SELECT
+    SYSDATE,
+    NEXT_DAY(SYSDATE, '금요일') AS "NEXT_DAY_금",
+    LAST_DAY(SYSDATE) AS "LAST_DAY_3"
+FROM
+    dual;

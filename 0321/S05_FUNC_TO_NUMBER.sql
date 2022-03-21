@@ -1,0 +1,5 @@
+-- TO_NUMBER
+SELECT
+    TO_NUMBER('1,300', '99,999') - TO_NUMBER('1,500', '9,999')
+FROM
+    dual;
