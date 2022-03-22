@@ -1,0 +1,6 @@
+SELECT
+    ROUND(VARIANCE(sal),2) AS VARIANCE,
+    ROUND(STDDEV(sal),2) AS STDDEV,
+    ROUND(AVG(NVL(sal,0)),2) AS AVG
+FROM
+    emp;
