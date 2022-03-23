@@ -1,0 +1,19 @@
+SELECT
+    NVL2(comm, 'O', 'X') AS "EXIST_COMM",
+    COUNT(*) AS "CNT"
+FROM
+    emp
+GROUP BY NVL2(comm, 'O', 'X')
+ORDER BY COUNT(*) DESC
+;
+
+SELECT EXIST_COMM,
+    COUNT(*)
+FROM(
+    SELECT CASE WHEN comm IS NOT NULL THEN 'O'
+            ELSE 'X'
+            END AS EXIST_COMM
+    FROM emp
+)
+GROUP BY EXIST_COMM
+;
