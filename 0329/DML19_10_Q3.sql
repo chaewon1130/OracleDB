@@ -1,0 +1,12 @@
+SELECT *
+FROM CHAP10HW_EMP
+WHERE deptno = 70
+;
+
+UPDATE CHAP10HW_EMP
+SET deptno = 70
+WHERE sal > (
+    SELECT AVG(sal)
+    FROM CHAP10HW_EMP
+    WHERE deptno = 50
+);
