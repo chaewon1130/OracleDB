@@ -1,0 +1,4 @@
+-- TRUNCATE
+
+TRUNCATE TABLE dept7;
+SELECT * FROM dept7;
