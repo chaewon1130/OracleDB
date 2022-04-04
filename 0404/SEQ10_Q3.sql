@@ -1,0 +1,25 @@
+-- P358 Q3
+CREATE TABLE deptseq
+AS(
+    SELECT *
+    FROM dept
+);
+SELECT * FROM deptseq;
+
+CREATE SEQUENCE seq_deptseq
+INCREMENT BY 1
+START WITH 1
+MAXVALUE 99
+MINVALUE 1
+NOCYCLE
+NOCACHE;
+SELECT * FROM user_sequences;
+
+INSERT INTO deptseq
+    VALUES(seq_deptseq.NEXTVAL, 'DATABASE', 'SEOUL');
+INSERT INTO deptseq
+    VALUES(seq_deptseq.NEXTVAL, 'WEB', 'BUSAN');
+INSERT INTO deptseq
+    VALUES(seq_deptseq.NEXTVAL, 'MOBILE', 'ILSAN');
+SELECT * FROM deptseq;
+COMMIT;
