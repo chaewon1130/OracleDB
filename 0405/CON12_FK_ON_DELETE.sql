@@ -1,0 +1,71 @@
+-- ON DELETE OPTION
+-- STEP1 테이블 생성
+CREATE TABLE C_TEST1(
+    no NUMBER,
+    name VARCHAR2(10),
+    deptno NUMBER
+);
+CREATE TABLE C_TEST2(
+    no NUMBER,
+    name VARCHAR2(10)
+);
+
+-- STEP2 제약조건 설정 & 데이터 입력
+-- C_TEST1_DEPTNO_FK 참조키 없이 생성
+ALTER TABLE C_TEST1
+ADD CONSTRAINT CTEST1_DEPTNO_FK FOREIGN KEY(DEPTNO)
+REFERENCES C_TEST2(NO);
+-- C_TEST2에 UK없음
+--오류 보고 -
+--ORA-02270: 이 열목록에 대해 일치하는 고유 또는 기본 키가 없습니다.
+
+-- C_TEST2에 NO를 UK로 지정후 다시 실행
+ALTER TABLE C_TEST2
+ADD CONSTRAINT CTEST2_NO_UK UNIQUE(NO);
+
+ALTER TABLE C_TEST1
+ADD CONSTRAINT CTEST1_DEPTNO_FK FOREIGN KEY(DEPTNO)
+REFERENCES C_TEST2(NO)
+ON DELETE CASCADE
+;
+
+SELECT t1.owner,
+    t1.constraint_name,
+    t1.constraint_type,
+    t1.table_name,
+    t1.r_owner,
+    t1.r_constraint_name
+FROM user_constraints t1
+WHERE t1.table_name IN ('C_TEST1', 'C_TEST2');
+
+-- 데이터 삽입
+INSERT INTO C_TEST2
+    VALUES(10, 'AAA');
+INSERT INTO C_TEST2
+    VALUES(20, 'BBB');
+INSERT INTO C_TEST2
+    VALUES(30, 'CCC');
+SELECT * FROM C_TEST2;
+COMMIT;
+
+INSERT INTO C_TEST1
+    VALUES(1, 'APPLE', 10);
+INSERT INTO C_TEST1
+    VALUES(2, 'BANANA', 20);
+INSERT INTO C_TEST1
+    VALUES(3, 'CHERRY', 30);
+SELECT * FROM C_TEST1;
+COMMIT;
+
+-- 번호 없는 케이스 넣기
+INSERT INTO C_TEST1
+    VALUES(4, 'PEACH', 40);
+--오류 보고 -
+--ORA-02291: 무결성 제약조건(SCOTT.CTEST1_DEPTNO_FK)이 위배되었습니다
+--- 부모 키가 없습니다
+
+-- ON DELETE CASCADE 테스트
+-- C_TEST2의 10번 삭제
+DELETE FROM C_TEST2
+WHERE NO = 10;
+SELECT * FROM C_TEST1;
