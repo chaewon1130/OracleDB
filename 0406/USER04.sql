@@ -1,0 +1,34 @@
+-- SYS에서 작업
+-- USER_ID : ORCLSTUDY
+-- 비번 : ORACLE
+
+-- 12C이후로 계정생성
+-- CREATE USER C##aaaa IDENTIFIED BY BBBB;
+-- 12C이전으로 계정 생성하도록 변경
+ALTER SESSION SET "_oracle_script" = true;
+
+CREATE USER ORCLSTUDY
+IDENTIFIED BY ORACLE;
+-- 아직 이상태로는 접속이 안됨(아직 권한 할당 하지 않음)
+
+-- 권한 할당
+GRANT CREATE SESSION TO ORCLSTUDY;
+
+-- 사용자 정보 조회
+SELECT *
+FROM ALL_USERS t1
+WHERE t1.USERNAME = 'ORCLSTUDY';
+
+SELECT *
+FROM DBA_USERS t1
+WHERE t1.USERNAME = 'ORCLSTUDY';
+
+-- 사용자 비밀번호 변경 : ORALCE => ORCL
+ALTER USER ORCLSTUDY
+IDENTIFIED BY ORCL;
+
+-- 사용자 삭제하기
+DROP USER ORCLSTUDY;
+
+-- 사용자와 객체(테이블)모두 삭제
+DROP USER ORCLSTUDY CASCADE;

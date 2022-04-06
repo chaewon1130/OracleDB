@@ -1,0 +1,19 @@
+-- SYS로 작업
+-- 계정생성
+ALTER SESSION SET "_oracle_script" = true;
+CREATE USER ORCLSTUDY
+IDENTIFIED BY ORCL;
+
+-- 권한부여
+-- RESOURCE : 사용자가 테이블, 시퀀스를 비롯한 여러 객체를 생성할
+-- 수 있는 기본 시스템 권한을 묶어 놓은 롤
+-- CREATE SESSION : 오라클 접속 권한
+GRANT RESOURCE,
+    CREATE SESSION,
+    CREATE TABLE,
+    INSERT ANY TABLE
+TO ORCLSTUDY;
+
+ALTER USER ORCLSTUDY
+DEFAULT TABLESPACE USERS
+QUOTA UNLIMITED ON USERS;
