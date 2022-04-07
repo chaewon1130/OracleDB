@@ -1,0 +1,9 @@
+-- ORCLSTUDY에서 작업
+SELECT *
+FROM SCOTT.TEMP;
+-- ORA-01031: 권한이 불충분합니다
+
+INSERT INTO SCOTT.TEMP
+    VALUES('1', '2');
+    
+ROLLBACK;

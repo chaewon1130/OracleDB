@@ -1,0 +1,10 @@
+-- 변수 대/소문자 구분 안함
+SET SERVEROUTPUT ON;
+DECLARE
+    V_DEPTNO DEPT.DEPTNO%TYPE := 50;
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('V_DEPTNO : ' || v_deptno);
+END;
+/
+
+--V_DEPTNO : 50
