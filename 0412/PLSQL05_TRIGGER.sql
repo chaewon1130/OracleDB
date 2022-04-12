@@ -1,0 +1,32 @@
+-- BEFORE TRIGGER
+-- STEP 1. CTAS로 테이블생성
+CREATE TABLE EMP_TRG
+    AS SELECT * FROM EMP;
+    
+SELECT * FROM EMP_TRG;
+
+-- STEP 2. TRIGGER 생성
+CREATE OR REPLACE TRIGGER TRG_EMP_NODML_WEEKEND
+BEFORE
+INSERT OR UPDATE OR DELETE ON EMP_TRG
+
+DECLARE
+
+BEGIN
+    -- DY : 요일
+    IF TO_CHAR(SYSDATE, 'DY') IN ('토', '일', '화') THEN
+        IF INSERTING THEN
+            RAISE_APPLICATION_ERROR(-20000, '주말 사원정보 추가 불가');
+        ELSIF UPDATING THEN
+            RAISE_APPLICATION_ERROR(-20001, '주말 사원정보 수정 불가');
+        ELSIF DELETING THEN
+            RAISE_APPLICATION_ERROR(-20002, '주말 사원정보 삭제 불가');
+        ELSE
+            RAISE_APPLICATION_ERROR(-20003, '주말 사원정보 변경 불가');
+        END IF;
+    END IF;
+END;
+/
+
+--Trigger TRG_EMP_NODML_WEEKEND이(가) 컴파일되었습니다.
+
